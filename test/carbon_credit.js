@@ -59,4 +59,20 @@ contract('CarbonCredit', function (accounts) {
     token = await CarbonCredit.new(randoOwner, "ABC Token", "ABC")
     assert.equal(await token.owner(), randoOwner)
   })
+
+  it('can retire carbon credits in your own address', async () => {
+    await token.depositCarbonCreditsFromCertificate(100, 'ipfshashabc')
+
+    let tx = await token.retire(3, {from: owner})
+
+    truffleAssert.eventEmitted(tx, 'Transfer', (ev) => {
+      assert.equal(ev.from, owner)
+      assert.equal(ev.to, emptyAddress)
+      assert.equal(ev.value, 3)
+      return true
+    })
+
+    assert.equal(await token.balanceOf(owner), 97)
+  })
+  it('cannot retire carbon credits in someone elses address')
 })
