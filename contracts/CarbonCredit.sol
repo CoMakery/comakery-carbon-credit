@@ -17,7 +17,7 @@ contract CarbonCredit is ERC20, Ownable, ERC20Detailed {
     
   }
 
-  function depositCarbonCreditsFromCertificate(uint256 _value, string memory _ipfsHashOfCarbonCreditCertificate) public {
+  function depositCarbonCreditsFromCertificate(uint256 _value, string memory _ipfsHashOfCarbonCreditCertificate) public onlyOwner {
     _mint(owner(), _value);
     emit DepositCarbonCreditsFromCertificate(owner(), _value, _ipfsHashOfCarbonCreditCertificate);
   }

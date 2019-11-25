@@ -1,13 +1,15 @@
 const truffleAssert = require('truffle-assertions')
 const CarbonCredit = artifacts.require("CarbonCredit")
 
-contract('CarbonCredit', function(accounts) {
+contract('CarbonCredit', function (accounts) {
   var owner
+  var notOwner
   var token
   var emptyAddress = web3.utils.padLeft(0x0, 40)
-  
+
   beforeEach(async () => {
     owner = accounts[0]
+    notOwner = accounts[1]
     token = await CarbonCredit.new("ABC Token", "ABC")
   })
 
@@ -22,7 +24,9 @@ contract('CarbonCredit', function(accounts) {
 
   it('can depositCarbonCreditsFromCertificate', async () => {
     let ipfsCarbonCertificateHash = "QmcFULbtwMYLwe2cUdUvvWNQVcRsqKCVgFbaUGgseJcpsa"
-    let tx = await token.depositCarbonCreditsFromCertificate(100, ipfsCarbonCertificateHash)
+    let tx = await token.depositCarbonCreditsFromCertificate(100, ipfsCarbonCertificateHash, {
+      from: owner
+    })
 
     truffleAssert.eventEmitted(tx, 'Transfer', (ev) => {
       assert.equal(ev.from, emptyAddress)
@@ -30,7 +34,7 @@ contract('CarbonCredit', function(accounts) {
       assert.equal(ev.value, 100)
       return true
     })
-    
+
     truffleAssert.eventEmitted(tx, 'DepositCarbonCreditsFromCertificate', (ev) => {
       assert.equal(ev.ifpsHashOfCarbonCreditCertificate, ipfsCarbonCertificateHash)
       assert.equal(ev.value, 100)
@@ -38,7 +42,15 @@ contract('CarbonCredit', function(accounts) {
       return true
     })
 
-    assert.equal(await token.totalSupply(),100)
+    assert.equal(await token.totalSupply(), 100)
     assert.equal(await token.balanceOf(owner), 100)
+  })
+
+  it('only owner can deposit carbon credits from certificate', async () => {
+    let ipfsCarbonCertificateHash = "QmcFULbtwMYLwe2cUdUvvWNQVcRsqKCVgFbaUGgseJcpsa"
+    await truffleAssert.reverts(token.depositCarbonCreditsFromCertificate(100,
+      ipfsCarbonCertificateHash, {
+        from: notOwner
+      }), "Ownable: caller is not the owner")
   })
 })
