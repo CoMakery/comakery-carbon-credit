@@ -18,11 +18,11 @@
  *
  */
 
-// const HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+require('dotenv').config()
+const Web3 = require('web3');
+
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const web3 = new Web3();
 
 module.exports = {
   /**
@@ -45,6 +45,8 @@ module.exports = {
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
+     gas: 6700000,           // Gas sent with each transaction (default: ~6700000)
+     gasPrice: 20000000000,
      network_id: "*",       // Any network (default: none)
     },
 
@@ -60,14 +62,30 @@ module.exports = {
 
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
-    // ropsten: {
-      // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
-      // network_id: 3,       // Ropsten's id
-      // gas: 5500000,        // Ropsten has a lower block limit than mainnet
-      // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-      // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    // },
+    "ropsten-infura": {
+      provider: () => new HDWalletProvider(
+        process.env.ROPSTEN_PRIVATE_KEY, 
+        process.env.ROPSTEN_INFURA_PROJECT_URL),
+      network_id: 3,       // Ropsten's id
+      gas: 5500000,        // Ropsten has a lower block limit than mainnet
+      gasPrice: web3.utils.toWei('3', 'gwei'),
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    "mainnet-infura": {
+      provider: () => new HDWalletProvider(
+        process.env.MAINNET_DEPLOYER_PRIVATE_KEY, 
+        process.env.MAINNET_INFURA_PROJECT_URL),
+      network_id: 1,       // Mainnet id
+      gas: 5500000,
+      gasPrice: web3.utils.toWei('3', 'gwei'),
+      from: process.env.MAINNET_DEPLOYER_ADDRESS,
+      confirmations: 4,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: false     // Skip dry run before migrations? (default: false for public nets )
+    },
 
     // Useful for private networks
     // private: {
