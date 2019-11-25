@@ -63,7 +63,9 @@ contract('CarbonCredit', function (accounts) {
   it('can retire carbon credits in your own address', async () => {
     await token.depositCarbonCreditsFromCertificate(100, 'ipfshashabc')
 
-    let tx = await token.retire(3, {from: owner})
+    let tx = await token.retire(3, {
+      from: owner
+    })
 
     truffleAssert.eventEmitted(tx, 'Transfer', (ev) => {
       assert.equal(ev.from, owner)
@@ -74,5 +76,13 @@ contract('CarbonCredit', function (accounts) {
 
     assert.equal(await token.balanceOf(owner), 97)
   })
-  it('cannot retire carbon credits in someone elses address')
+
+  it('cannot retire more carbon credits than you have', async () => {
+    await token.depositCarbonCreditsFromCertificate(100, 'ipfshashabc')
+    await truffleAssert.reverts(token.retire(101, {
+      from: owner
+    }), 'ERC20: burn amount exceeds balance')
+
+    assert.equal(await token.balanceOf(owner), 100)
+  })
 })
