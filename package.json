@@ -6,6 +6,7 @@
   "author": "CoMakery, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@openzeppelin/contracts": "^2.4.0",
     "truffle": "^5.1.1"
   }
 }
