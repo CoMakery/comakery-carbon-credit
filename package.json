@@ -1,0 +1,8 @@
+{
+  "name": "carboncredit",
+  "version": "0.0.1",
+  "description": "Carbon credit ERC20 token ",
+  "main": "index.js",
+  "author": "CoMakery, Inc.",
+  "license": "MIT"
+}
