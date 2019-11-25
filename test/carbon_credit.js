@@ -10,7 +10,7 @@ contract('CarbonCredit', function (accounts) {
   beforeEach(async () => {
     owner = accounts[0]
     notOwner = accounts[1]
-    token = await CarbonCredit.new("ABC Token", "ABC")
+    token = await CarbonCredit.new(owner, "ABC Token", "ABC")
   })
 
   it('should have the expected state on deployment', async () => {
@@ -52,5 +52,11 @@ contract('CarbonCredit', function (accounts) {
       ipfsCarbonCertificateHash, {
         from: notOwner
       }), "Ownable: caller is not the owner")
+  })
+
+  it('can pass in an owner address that is not the deployer', async () => {
+    let randoOwner = accounts[5]
+    token = await CarbonCredit.new(randoOwner, "ABC Token", "ABC")
+    assert.equal(await token.owner(), randoOwner)
   })
 })

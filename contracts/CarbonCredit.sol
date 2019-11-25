@@ -11,10 +11,10 @@ contract CarbonCredit is ERC20, Ownable, ERC20Detailed {
     uint256 indexed value,
     string ifpsHashOfCarbonCreditCertificate);
 
-  constructor(string memory _name, string memory _symbol)
+  constructor(address _owner, string memory _name, string memory _symbol)
   ERC20Detailed(_name, _symbol, 18)
   public {
-    
+    transferOwnership(_owner);
   }
 
   function depositCarbonCreditsFromCertificate(uint256 _value, string memory _ipfsHashOfCarbonCreditCertificate) public onlyOwner {
