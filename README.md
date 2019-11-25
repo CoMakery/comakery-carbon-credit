@@ -16,4 +16,5 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 1. The admin pays the contributor in carbon credits
 1. The contributor transfers some of their tokens to an exchange to sell
 1. The contributor retires the remaining carbon credit tokens to offset some of their own carbon footprint.
-
+1. The contributor has impacted the climate and a new carbon credit certificate is issued to the Project Admin
+1. The Project Admin deposits the carbon credit certificate in the CoMakery Climate Project and the cycle continue.

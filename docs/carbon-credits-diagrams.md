@@ -13,5 +13,6 @@ Contributor -> CoMakery: Submit work for carbon credits
 Admin -> Token: transfer(carbonCredits,\ncontributorAddress)
 Contributor -> Token: transfer(exchangeAddress)\n//To sell carbon credits
 Contributor -> Token: retire(value)
+Certifier -> Admin: Issue Carbon Credit Certificate
 @enduml
 ```
