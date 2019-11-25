@@ -4,5 +4,8 @@
   "description": "Carbon credit ERC20 token ",
   "main": "index.js",
   "author": "CoMakery, Inc.",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "truffle": "^5.1.1"
+  }
 }
