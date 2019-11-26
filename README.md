@@ -6,7 +6,7 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 
 ## How It Works
 
-![](docs/carbon-credits-diagrams/carbon-credits.png)
+![](docs/carbon-credits-diagrams/carbon-credits2.png)
 
 1. The project admin purchases carbon credits from a certifier such as [Gold Standard](https://www.goldstandard.org/)
 1. The project admin upload the certificate purchase details to IPFS and gets the file address called the ipfs Hash
@@ -17,4 +17,4 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 1. The contributor transfers some of their tokens to an exchange to sell
 1. The contributor retires the remaining carbon credit tokens to offset some of their own carbon footprint.
 1. The contributor has impacted the climate and a new carbon credit certificate is issued to the Project Admin
-1. The Project Admin deposits the carbon credit certificate in the CoMakery Climate Project and the cycle continue.
+1. The Project Admin deposits the carbon credit certificate in the CoMakery Climate Project and the cycle continues.
