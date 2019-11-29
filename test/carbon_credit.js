@@ -6,6 +6,7 @@ contract('CarbonCredit', function (accounts) {
   var notOwner
   var token
   var emptyAddress = web3.utils.padLeft(0x0, 40)
+  var ipfsCarbonCertificateHash = "QmcFULbtwMYLwe2cUdUvvWNQVcRsqKCVgFbaUGgseJcpsa"
 
   beforeEach(async () => {
     owner = accounts[0]
@@ -23,7 +24,6 @@ contract('CarbonCredit', function (accounts) {
   })
 
   it('can depositCarbonCreditsFromCertificate', async () => {
-    let ipfsCarbonCertificateHash = "QmcFULbtwMYLwe2cUdUvvWNQVcRsqKCVgFbaUGgseJcpsa"
     let tx = await token.depositCarbonCreditsFromCertificate(100, ipfsCarbonCertificateHash, {
       from: owner
     })
@@ -47,7 +47,6 @@ contract('CarbonCredit', function (accounts) {
   })
 
   it('only owner can deposit carbon credits from certificate', async () => {
-    let ipfsCarbonCertificateHash = "QmcFULbtwMYLwe2cUdUvvWNQVcRsqKCVgFbaUGgseJcpsa"
     await truffleAssert.reverts(token.depositCarbonCreditsFromCertificate(100,
       ipfsCarbonCertificateHash, {
         from: notOwner
@@ -84,5 +83,30 @@ contract('CarbonCredit', function (accounts) {
     }), 'ERC20: burn amount exceeds balance')
 
     assert.equal(await token.balanceOf(owner), 100)
+  })
+
+  it('can lookup the carbon credit certificates that have been deposited and get their value', async () => {
+    await token.depositCarbonCreditsFromCertificate(100, ipfsCarbonCertificateHash)
+    assert.equal(await token.carbonCertificates(0), ipfsCarbonCertificateHash)
+    assert.equal(await token.carbonCertificateValue(ipfsCarbonCertificateHash), 100)
+  })
+
+  it('cannot deposit the same carbon credit more than once', async () => {
+    assert.equal(await token.carbonCertificatesLength.call(), 0)
+    await token.depositCarbonCreditsFromCertificate(100, ipfsCarbonCertificateHash)
+    assert.equal(await token.carbonCertificatesLength.call(), 1)
+    assert.equal(await token.carbonCertificates(0), ipfsCarbonCertificateHash)
+
+    await truffleAssert.reverts(token.depositCarbonCreditsFromCertificate(100,
+      ipfsCarbonCertificateHash), "Certificate already deposited")
+
+    assert.equal(await token.carbonCertificatesLength.call(), 1)
+  })
+
+  it('considers a 0 value carbon credit to not be set', async () => {
+    await truffleAssert.reverts(token.depositCarbonCreditsFromCertificate(0,
+      ipfsCarbonCertificateHash), "Certificate must have a value greater than 0")
+    
+    assert.equal(await token.carbonCertificatesLength.call(), 0)
   })
 })
