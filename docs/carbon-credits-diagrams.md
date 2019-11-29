@@ -1,5 +1,5 @@
 ```plantuml
-@startuml carbon-credits
+@startuml carbon-credits2
 hide footbox
 actor Certifier as "Carbon Credit\nCertifier"
 actor Admin as "Project Admin"

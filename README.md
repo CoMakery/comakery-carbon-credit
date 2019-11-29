@@ -18,3 +18,13 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 1. The contributor retires the remaining carbon credit tokens to offset some of their own carbon footprint.
 1. The contributor has impacted the climate and a new carbon credit certificate is issued to the Project Admin
 1. The Project Admin deposits the carbon credit certificate in the CoMakery Climate Project and the cycle continues.
+
+## Deployment
+
+Copy the `.env` file with `cp .env.example .env` and fill in the `.env` values for your Infura Ethereum node API key and Ethereum private key.
+
+Deploy:
+`yarn truffle deploy --network ropsten`
+
+Verify the contract on [Etherscan](https://github.com/gnosis/verify-on-etherscan) with: 
+`API_KEY=<your_etherscan_api_key> npx verify-on-etherscan --network  ./build/contracts/*`
