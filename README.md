@@ -19,12 +19,47 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 1. The contributor has impacted the climate and a new carbon credit certificate is issued to the Project Admin
 1. The Project Admin deposits the carbon credit certificate in the CoMakery Climate Project and the cycle continues.
 
-## Deployment
+# Deployment
 
-Copy the `.env` file with `cp .env.example .env` and fill in the `.env` values for your Infura Ethereum node API key and Ethereum private key.
+## (1) Copy the `.env` file with 
 
-Deploy:
-`yarn truffle deploy --network ropsten`
+```
+cp .env.example .env
+```
 
-Verify the contract on [Etherscan](https://github.com/gnosis/verify-on-etherscan) with: 
-`API_KEY=<your_etherscan_api_key> npx verify-on-etherscan --network  ./build/contracts/*`
+## (2) Then fill in the `.env` values 
+
+for your Infura Ethereum node API key and Ethereum private key.
+
+## (3) Install truffle globally
+
+```
+npm install -g truffle
+```
+
+## (4) Deploy the smart contracts
+Deploy to `ropsten` testnet or another Ethereum blockchain network like `mainnet` with:
+
+```
+truffle deploy --compile-all --reset --network ropsten-infura
+```
+
+## (5) Write down your the contract address
+
+So you can find the address on Etherscan or other networks. It will appear in the deploy output and look like this:
+```
+   Replacing 'CarbonCredit'
+   ------------------------
+   ...
+   > contract address:    0x85ACf61EE09C3FC771013Cd2f5ddF891DA1C8D01
+   ...
+```
+
+## (6) Publish the verified code to [Etherscan](https://github.com/gnosis/verify-on-etherscan)
+
+You will need to create an account on Etherscan.
+Change the  `--network` arugument to the network you deployed to (e.g. ropsten, mainnet, etc):
+
+```
+API_KEY=<your_etherscan_api_key> npx verify-on-etherscan --network ropsten  ./build/contracts/*
+```
