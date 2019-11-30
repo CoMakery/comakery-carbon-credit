@@ -3,7 +3,6 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol";
 import "@openzeppelin/contracts/ownership/Ownable.sol";
 
-// ERC20Detailed("CoMakery Carbon Credits", "CCC", 18)
 contract CarbonCredit is ERC20, Ownable, ERC20Detailed {
   string[] public carbonCertificates;
   mapping(string => uint256) public carbonCertificateValue;
