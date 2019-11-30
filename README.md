@@ -55,7 +55,9 @@ So you can find the address on Etherscan or other networks. It will appear in th
    ...
 ```
 
-## (6) Publish the verified code to [Etherscan](https://github.com/gnosis/verify-on-etherscan)
+## (6) Publish the verified code to [Etherscan](https://ropsten.etherscan.io/address/0x85ACf61EE09C3FC771013Cd2f5ddF891DA1C8D01#code)
+
+Use the [Verify On Etherscan](https://github.com/gnosis/verify-on-etherscan) library.
 
 You will need to create an account on Etherscan.
 Change the  `--network` arugument to the network you deployed to (e.g. ropsten, mainnet, etc):
