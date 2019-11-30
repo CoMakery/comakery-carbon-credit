@@ -9,8 +9,8 @@ A an ERC20 token backed by carbon credits - allows certified issuance, transfer 
 ![](docs/carbon-credits-diagrams/carbon-credits2.png)
 
 1. The project admin purchases carbon credits from a certifier such as [Gold Standard](https://www.goldstandard.org/)
-1. The project admin upload the certificate purchase details to IPFS and gets the file address called the ipfs Hash
-1. The project admin calls the depositCarbonCreditsFromCertificate functioin on the Carbon Credit ERC20 token with the value of the certificate. Note that the token has 18 decimals of precision so it should be the value of carbon credits times 10^18.
+1. The project admin upload the certificate purchase details to IPFS using a service like [Pinata](https://pinata.cloud) and gets the file address called the ipfs Hash. For example: the ipfs hash `QmUEGNbwdjLjk7C2hh2WDFwkNjixszwH3B1sFWqLseXTPi` can be used to look up a certificate receipt at any ipfs gateway like [https://gateway.pinata.cloud/ipfs/QmUEGNbwdjLjk7C2hh2WDFwkNjixszwH3B1sFWqLseXTPi](https://gateway.pinata.cloud/ipfs/QmUEGNbwdjLjk7C2hh2WDFwkNjixszwH3B1sFWqLseXTPi) or [https://cloudflare-ipfs.com/ipfs/QmUEGNbwdjLjk7C2hh2WDFwkNjixszwH3B1sFWqLseXTPi](https://cloudflare-ipfs.com/ipfs/QmUEGNbwdjLjk7C2hh2WDFwkNjixszwH3B1sFWqLseXTPi)
+1. The project admin uses a smart contract like [Etherscan dApp explorer](https://ropsten.etherscan.io/dapp/0x85ACf61EE09C3FC771013Cd2f5ddF891DA1C8D01) to call the `depositCarbonCreditsFromCertificate` function on the Carbon Credit ERC20 token with the value of the certificate. Note that the token has 18 decimals of precision so it should be the value of carbon credits times 10^18.
 1. The project admin now has the value of the certificate in their account. Other people can view the event log to see the carbon certificate ipfs hash and look it up on ipfs to verify the certificate.
 1. A contributor contributes work to a Climate Impact Project on CoMakery
 1. The admin pays the contributor in carbon credits
